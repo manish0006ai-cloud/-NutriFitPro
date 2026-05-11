@@ -58,6 +58,46 @@ const gymFoods = [
   { id:'apple', name:'Apple', category:'micro', diet:['veg','vegan'], traffic:'green', cal:52, protein:0.3, carbs:14, fat:0.2, fiber:2.4, vitC:5, calcium:6, iron:0.1, vitB6:0, vitB12:0 },
   { id:'orange', name:'Orange', category:'micro', diet:['veg','vegan'], traffic:'green', cal:47, protein:0.9, carbs:12, fat:0.1, fiber:2.4, vitC:53, calcium:40, iron:0.1, vitB6:0.1, vitB12:0 },
   { id:'mixed_berries', name:'Mixed Berries', category:'micro', diet:['veg','vegan'], traffic:'green', cal:57, protein:1.2, carbs:12, fat:0.4, fiber:4, vitC:26, calcium:20, iron:0.5, vitB6:0.1, vitB12:0 },
+  // INDIAN STAPLES - GRAINS & BREADS
+  { id:'chapati', name:'Chapati (Whole Wheat Roti)', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:264, protein:8, carbs:50, fat:3.5, fiber:7 },
+  { id:'jowar_bhakri', name:'Jowar Bhakri', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:330, protein:10, carbs:70, fat:2, fiber:10 },
+  { id:'bajra_bhakri', name:'Bajra Bhakri', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:350, protein:11, carbs:65, fat:5, fiber:11 },
+  { id:'ragi_roti', name:'Ragi Roti / Mudde', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:330, protein:7, carbs:72, fat:1.3, fiber:14 },
+  { id:'jowar_grain', name:'Jowar (Sorghum)', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:339, protein:11, carbs:71, fat:3, fiber:7 },
+  { id:'bajra_grain', name:'Bajra (Pearl Millet)', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:361, protein:11, carbs:67, fat:5, fiber:1.3 },
+  { id:'ragi_grain', name:'Ragi (Finger Millet)', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:328, protein:7.3, carbs:72, fat:1.3, fiber:3.6 },
+  { id:'maize_grain', name:'Maize (Corn)', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:365, protein:9.4, carbs:74, fat:4.7, fiber:7.3 },
+  { id:'wheat_whole', name:'Whole Wheat Grain', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:339, protein:13, carbs:71, fat:2, fiber:12 },
+  
+  // INDIAN STAPLES - DALS & PULSES (Cooked)
+  { id:'toor_dal', name:'Toor Dal (Cooked)', category:'protein', diet:['veg','vegan'], traffic:'green', cal:120, protein:7, carbs:20, fat:0.5, fiber:5 },
+  { id:'moong_dal', name:'Moong Dal (Yellow - Cooked)', category:'protein', diet:['veg','vegan'], traffic:'green', cal:105, protein:7, carbs:19, fat:0.4, fiber:4 },
+  { id:'masoor_dal', name:'Masoor Dal (Red - Cooked)', category:'protein', diet:['veg','vegan'], traffic:'green', cal:116, protein:9, carbs:20, fat:0.4, fiber:8 },
+  { id:'chana_dal', name:'Chana Dal (Cooked)', category:'protein', diet:['veg','vegan'], traffic:'green', cal:160, protein:9, carbs:25, fat:2, fiber:8 },
+  { id:'urad_dal', name:'Urad Dal (Cooked)', category:'protein', diet:['veg','vegan'], traffic:'green', cal:110, protein:7.5, carbs:19, fat:0.5, fiber:5 },
+  { id:'moong_whole', name:'Whole Moong (Green - Cooked)', category:'protein', diet:['veg','vegan'], traffic:'green', cal:105, protein:7, carbs:19, fat:0.4, fiber:7 },
+  { id:'matki', name:'Matki (Moth Beans - Cooked)', category:'protein', diet:['veg','vegan'], traffic:'green', cal:115, protein:8, carbs:20, fat:0.5, fiber:6 },
+  { id:'rajma', name:'Rajma (Kidney Beans - Cooked)', category:'protein', diet:['veg','vegan'], traffic:'green', cal:127, protein:8.7, carbs:22, fat:0.5, fiber:6.4 },
+  { id:'chole', name:'Chole (Chickpeas - Cooked)', category:'protein', diet:['veg','vegan'], traffic:'green', cal:164, protein:8.9, carbs:27, fat:2.6, fiber:7.6 },
+
+  // INDIAN STAPLES - VEGETABLES & SABJIS (Approx. per 100g cooked)
+  { id:'brinjal_sabji', name:'Brinjal Sabji (Baingan)', category:'micro', diet:['veg','vegan'], traffic:'green', cal:80, protein:1.5, carbs:6, fat:6, fiber:3 },
+  { id:'spinach_bhaji', name:'Spinach Bhaji (Palak)', category:'micro', diet:['veg','vegan'], traffic:'green', cal:60, protein:3, carbs:4, fat:4, fiber:2.2 },
+  { id:'methi_bhaji', name:'Methi Bhaji (Fenugreek)', category:'micro', diet:['veg','vegan'], traffic:'green', cal:70, protein:4, carbs:5, fat:4, fiber:4 },
+  { id:'math_bhaji', name:'Amaranth Leaves (Math) Bhaji', category:'micro', diet:['veg','vegan'], traffic:'green', cal:65, protein:3.5, carbs:4, fat:4, fiber:3 },
+  { id:'shepu_bhaji', name:'Dill (Shepu) Bhaji', category:'micro', diet:['veg','vegan'], traffic:'green', cal:60, protein:3, carbs:5, fat:4, fiber:2 },
+  { id:'cabbage_sabji', name:'Cabbage Sabji', category:'micro', diet:['veg','vegan'], traffic:'green', cal:75, protein:1.5, carbs:6, fat:5, fiber:2.5 },
+  { id:'cauliflower_sabji', name:'Cauliflower Sabji', category:'micro', diet:['veg','vegan'], traffic:'green', cal:70, protein:2, carbs:5, fat:5, fiber:2 },
+  { id:'lauki_sabji', name:'Bottle Gourd (Lauki/Dudhi) Sabji', category:'micro', diet:['veg','vegan'], traffic:'green', cal:50, protein:0.5, carbs:3, fat:4, fiber:1.2 },
+  { id:'turai_sabji', name:'Ridge Gourd (Turai) Sabji', category:'micro', diet:['veg','vegan'], traffic:'green', cal:55, protein:1, carbs:4, fat:4, fiber:1.5 },
+  { id:'karela_sabji', name:'Bitter Gourd (Karela) Sabji', category:'micro', diet:['veg','vegan'], traffic:'green', cal:85, protein:1.5, carbs:6, fat:6, fiber:2 },
+  { id:'bhindi_sabji', name:'Okra (Bhindi) Sabji', category:'micro', diet:['veg','vegan'], traffic:'green', cal:90, protein:2, carbs:7, fat:6, fiber:3.2 },
+  { id:'gawar_sabji', name:'Cluster Beans (Gawar) Sabji', category:'micro', diet:['veg','vegan'], traffic:'green', cal:85, protein:3, carbs:8, fat:5, fiber:5 },
+  { id:'beans_sabji', name:'French Beans Sabji', category:'micro', diet:['veg','vegan'], traffic:'green', cal:80, protein:2, carbs:7, fat:5, fiber:3.4 },
+  { id:'cucumber', name:'Cucumber', category:'micro', diet:['veg','vegan'], traffic:'green', cal:15, protein:0.7, carbs:3.6, fat:0.1, fiber:0.5 },
+  { id:'capsicum', name:'Capsicum (Shimla Mirch)', category:'micro', diet:['veg','vegan'], traffic:'green', cal:20, protein:0.9, carbs:4.6, fat:0.2, fiber:1.7 },
+  { id:'drumstick_leaves', name:'Drumstick Leaves', category:'micro', diet:['veg','vegan'], traffic:'green', cal:92, protein:6.7, carbs:13, fat:1.7, fiber:0.9 },
+  { id:'coriander_leaves', name:'Coriander Leaves', category:'micro', diet:['veg','vegan'], traffic:'green', cal:23, protein:2.1, carbs:3.7, fat:0.5, fiber:2.8 },
 ];
 
 export default gymFoods;
