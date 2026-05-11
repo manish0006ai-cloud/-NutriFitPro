@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react';
 import { useFoodLog } from '../../context/FoodLogContext';
 import { useUser } from '../../context/UserContext';
 import { searchLocalFoods } from '../../lib/foodDatabase';
-import { MEAL_TYPES } from '../../lib/constants';
+import { MEAL_TYPES, EGG_SIZES } from '../../lib/constants';
 import VoiceLogger from './VoiceLogger';
 
 export default function FoodLog() {
@@ -37,7 +37,12 @@ export default function FoodLog() {
 
   const handleAddFood = () => {
     if (!selectedFood) return;
-    addFood(selectedMeal, { ...selectedFood, quantity, unit: 'g', loggedAt: new Date().toISOString() });
+    const itemToAdd = { ...selectedFood, quantity, unit: 'g', loggedAt: new Date().toISOString() };
+    if (selectedFood.name.toLowerCase().includes('egg')) {
+      const size = EGG_SIZES.find(s => s.weight === quantity);
+      if (size) itemToAdd.sizeLabel = size.label;
+    }
+    addFood(selectedMeal, itemToAdd);
     setSelectedFood(null);
     setQuantity(100);
     setShowSearch(false);
@@ -93,7 +98,9 @@ export default function FoodLog() {
                   <div key={idx} className="food-log-item">
                     <div>
                       <div className="food-log-name">{item.name}</div>
-                      <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{item.quantity}g</div>
+                      <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+                        {item.sizeLabel ? `${item.sizeLabel} Egg (${item.quantity}g)` : `${item.quantity}g`}
+                      </div>
                     </div>
                     <div className="food-log-macros">
                       <span className="food-log-macro"><span className="dot" style={{ background: 'var(--accent)' }} />{Math.round(item.cal * mult)} kcal</span>
@@ -134,6 +141,24 @@ export default function FoodLog() {
                       <label>Serving Size (grams)</label>
                       <input className="input" type="number" value={quantity} onChange={e => setQuantity(+e.target.value)} min={1} />
                     </div>
+
+                    {selectedFood.name.toLowerCase().includes('egg') && (
+                      <div style={{ marginBottom: 16 }}>
+                        <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: 8 }}>Select Size:</label>
+                        <div style={{ display: 'flex', gap: 8 }}>
+                          {EGG_SIZES.map(size => (
+                            <button
+                              key={size.id}
+                              className={`btn btn-sm ${quantity === size.weight ? 'btn-primary' : 'btn-secondary'}`}
+                              style={{ flex: 1, fontSize: '0.75rem' }}
+                              onClick={() => setQuantity(size.weight)}
+                            >
+                              {size.label} ({size.weight}g)
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                     <div className="card" style={{ background: 'var(--bg-glass)', padding: 12 }}>
                       <p style={{ fontSize: '0.8rem', fontWeight: 600, marginBottom: 8 }}>Nutrition for {quantity}g:</p>
                       <div className="grid-4">

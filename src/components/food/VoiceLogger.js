@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useFoodLog } from '../../context/FoodLogContext';
 import { searchLocalFoods } from '../../lib/foodDatabase';
-import { MEAL_TYPES } from '../../lib/constants';
+import { MEAL_TYPES, EGG_SIZES } from '../../lib/constants';
 
 export default function VoiceLogger() {
   const { addFood } = useFoodLog();
@@ -86,7 +86,18 @@ export default function VoiceLogger() {
 
     if (foundFoods.length > 0) {
       foundFoods.forEach(food => {
-        addFood(selectedMeal, { ...food, quantity: 100, unit: 'g', loggedAt: new Date().toISOString() });
+        let quantity = 100;
+        let sizeLabel = null;
+
+        if (food.name.toLowerCase().includes('egg')) {
+          const size = EGG_SIZES.find(s => text.includes(s.id) || text.includes(s.label.toLowerCase()));
+          if (size) {
+            quantity = size.weight;
+            sizeLabel = size.label;
+          }
+        }
+
+        addFood(selectedMeal, { ...food, quantity, sizeLabel, unit: 'g', loggedAt: new Date().toISOString() });
       });
       setStatus(`Added ${foundFoods.length} items to ${selectedMeal}`);
       

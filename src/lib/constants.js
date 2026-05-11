@@ -94,3 +94,9 @@ export const NUTRIENT_MAP = {
   1185: { name: 'vitaminK', unit: 'mcg' },
   1177: { name: 'folate', unit: 'mcg' },
 };
+
+export const EGG_SIZES = [
+  { id: 'small', label: 'Small', weight: 40 },
+  { id: 'medium', label: 'Medium', weight: 50 },
+  { id: 'large', label: 'Large', weight: 60 },
+];
