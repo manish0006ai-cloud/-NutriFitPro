@@ -41,6 +41,16 @@ function reducer(state, action) {
       saveDayLog(log);
       return log;
     }
+    case 'UPDATE_FOOD': {
+      const { mealType, index, food } = action.payload;
+      const items = [...(state.meals[mealType] || [])];
+      items[index] = food;
+      const meals = { ...state.meals, [mealType]: items };
+      const totals = recalcTotals(meals);
+      const log = { ...state, meals, totals };
+      saveDayLog(log);
+      return log;
+    }
     case 'SET_WATER': {
       const log = { ...state, water: action.payload };
       saveDayLog(log);
@@ -75,6 +85,10 @@ export function FoodLogProvider({ children }) {
     dispatch({ type: 'REMOVE_FOOD', payload: { mealType, index } });
   }, []);
 
+  const updateFood = useCallback((mealType, index, food) => {
+    dispatch({ type: 'UPDATE_FOOD', payload: { mealType, index, food } });
+  }, []);
+
   const setWater = useCallback((glasses) => {
     dispatch({ type: 'SET_WATER', payload: glasses });
   }, []);
@@ -84,7 +98,7 @@ export function FoodLogProvider({ children }) {
   }, []);
 
   return (
-    <FoodLogContext.Provider value={{ ...state, addFood, removeFood, setWater, toggleSupplement, dispatch }}>
+    <FoodLogContext.Provider value={{ ...state, addFood, removeFood, updateFood, setWater, toggleSupplement, dispatch }}>
       {children}
     </FoodLogContext.Provider>
   );

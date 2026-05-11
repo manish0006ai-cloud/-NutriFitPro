@@ -7,7 +7,7 @@ import { MEAL_TYPES, EGG_SIZES, EGG_WHITE_SIZES, ROTI_SIZES } from '../../lib/co
 import VoiceLogger from './VoiceLogger';
 
 export default function FoodLog() {
-  const { meals, totals, addFood, removeFood } = useFoodLog();
+  const { meals, totals, addFood, removeFood, updateFood } = useFoodLog();
   const { profile } = useUser();
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -18,6 +18,7 @@ export default function FoodLog() {
   const [eggCount, setEggCount] = useState(1);
   const [apiResults, setApiResults] = useState([]);
   const [searching, setSearching] = useState(false);
+  const [editingItem, setEditingItem] = useState(null);
 
   const doSearch = useCallback(async (q) => {
     setSearchQuery(q);
@@ -38,7 +39,7 @@ export default function FoodLog() {
 
   const handleAddFood = () => {
     if (!selectedFood) return;
-    const itemToAdd = { ...selectedFood, quantity, unit: 'g', loggedAt: new Date().toISOString() };
+    const itemToAdd = { ...selectedFood, quantity, count: eggCount, unit: 'g', loggedAt: new Date().toISOString() };
     if (selectedFood.id === 'eggs_whole' || selectedFood.name.toLowerCase() === 'whole eggs') {
       const size = EGG_SIZES.find(s => s.weight === Math.round(quantity / eggCount));
       if (size) itemToAdd.sizeLabel = eggCount > 1 ? `${eggCount}x ${size.label} Whole` : `${size.label} Whole`;
@@ -50,14 +51,31 @@ export default function FoodLog() {
       const label = selectedFood.name.toLowerCase().includes('chapati') ? 'Chapati' : selectedFood.name.toLowerCase().includes('bhakri') ? 'Bhakri' : 'Roti';
       if (size) itemToAdd.sizeLabel = eggCount > 1 ? `${eggCount}x ${size.label} ${label}` : `${size.label} ${label}`;
     }
-    addFood(selectedMeal, itemToAdd);
+    
+    if (editingItem) {
+      updateFood(editingItem.mealType, editingItem.index, itemToAdd);
+    } else {
+      addFood(selectedMeal, itemToAdd);
+    }
+
     setSelectedFood(null);
+    setEditingItem(null);
     setQuantity(100);
     setEggCount(1);
     setShowSearch(false);
     setSearchQuery('');
     setSearchResults([]);
     setApiResults([]);
+    setEditingItem(null);
+  };
+
+  const handleEditClick = (mealType, index, item) => {
+    setSelectedMeal(mealType);
+    setSelectedFood(item);
+    setQuantity(item.quantity || 100);
+    setEggCount(item.count || 1);
+    setEditingItem({ mealType, index });
+    setShowSearch(true);
   };
 
   return (
@@ -116,7 +134,8 @@ export default function FoodLog() {
                       <span className="food-log-macro"><span className="dot" style={{ background: 'var(--protein)' }} />{Math.round(item.protein * mult)}g P</span>
                       <span className="food-log-macro"><span className="dot" style={{ background: 'var(--carbs)' }} />{Math.round(item.carbs * mult)}g C</span>
                       <span className="food-log-macro"><span className="dot" style={{ background: 'var(--fat)' }} />{Math.round(item.fat * mult)}g F</span>
-                      <button className="btn btn-sm btn-danger" style={{ padding: '4px 8px' }} onClick={() => removeFood(mt.id, idx)}>✕</button>
+                      <button className="btn btn-sm btn-secondary" style={{ padding: '4px 8px', marginLeft: 8 }} onClick={() => handleEditClick(mt.id, idx, item)}>✏️</button>
+                      <button className="btn btn-sm btn-danger" style={{ padding: '4px 8px', marginLeft: 4 }} onClick={() => removeFood(mt.id, idx)}>✕</button>
                     </div>
                   </div>
                 );
@@ -128,11 +147,11 @@ export default function FoodLog() {
 
       {/* Search Modal */}
       {showSearch && (
-        <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) setShowSearch(false); }}>
+        <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) { setShowSearch(false); setEditingItem(null); setSelectedFood(null); } }}>
           <div className="modal" style={{ maxWidth: 550 }}>
             <div className="modal-header">
-              <h3 style={{ fontWeight: 700 }}>Search Food — {MEAL_TYPES.find(m => m.id === selectedMeal)?.label}</h3>
-              <button className="btn btn-sm btn-secondary" onClick={() => setShowSearch(false)}>✕</button>
+              <h3 style={{ fontWeight: 700 }}>{editingItem ? 'Edit Logged Food' : `Search Food — ${MEAL_TYPES.find(m => m.id === selectedMeal)?.label}`}</h3>
+              <button className="btn btn-sm btn-secondary" onClick={() => { setShowSearch(false); setEditingItem(null); setSelectedFood(null); }}>✕</button>
             </div>
             <div className="modal-body">
               <div className="search-container" style={{ marginBottom: 16 }}>
@@ -207,8 +226,8 @@ export default function FoodLog() {
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: 8 }}>
-                    <button className="btn btn-secondary" onClick={() => setSelectedFood(null)}>← Back</button>
-                    <button className="btn btn-primary" style={{ flex: 1 }} onClick={handleAddFood}>Add to {MEAL_TYPES.find(m => m.id === selectedMeal)?.label}</button>
+                    <button className="btn btn-secondary" onClick={() => { setSelectedFood(null); if(editingItem) { setShowSearch(false); setEditingItem(null); } }}>← {editingItem ? 'Cancel' : 'Back'}</button>
+                    <button className="btn btn-primary" style={{ flex: 1 }} onClick={handleAddFood}>{editingItem ? 'Update Log' : `Add to ${MEAL_TYPES.find(m => m.id === selectedMeal)?.label}`}</button>
                   </div>
                 </div>
               ) : (
