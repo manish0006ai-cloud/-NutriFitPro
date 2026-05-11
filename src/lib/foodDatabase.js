@@ -59,9 +59,9 @@ const gymFoods = [
   { id:'orange', name:'Orange', category:'micro', diet:['veg','vegan'], traffic:'green', cal:47, protein:0.9, carbs:12, fat:0.1, fiber:2.4, vitC:53, calcium:40, iron:0.1, vitB6:0.1, vitB12:0 },
   { id:'mixed_berries', name:'Mixed Berries', category:'micro', diet:['veg','vegan'], traffic:'green', cal:57, protein:1.2, carbs:12, fat:0.4, fiber:4, vitC:26, calcium:20, iron:0.5, vitB6:0.1, vitB12:0 },
   // INDIAN STAPLES - GRAINS & BREADS
-  { id:'chapati', name:'Chapati (Whole Wheat Roti)', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:264, protein:8, carbs:50, fat:3.5, fiber:7 },
-  { id:'jowar_bhakri', name:'Jowar Bhakri', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:330, protein:10, carbs:70, fat:2, fiber:10 },
-  { id:'bajra_bhakri', name:'Bajra Bhakri', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:350, protein:11, carbs:65, fat:5, fiber:11 },
+  { id:'chapati', name:'Chapati (Whole Wheat Roti)', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:244, protein:7.4, carbs:45, fat:1.5, fiber:7 },
+  { id:'jowar_bhakri', name:'Jowar Bhakri', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:240, protein:7.5, carbs:48, fat:1.5, fiber:10 },
+  { id:'bajra_bhakri', name:'Bajra Bhakri', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:240, protein:8, carbs:48, fat:3, fiber:11 },
   { id:'ragi_roti', name:'Ragi Roti / Mudde', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:330, protein:7, carbs:72, fat:1.3, fiber:14 },
   { id:'jowar_grain', name:'Jowar (Sorghum)', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:339, protein:11, carbs:71, fat:3, fiber:7 },
   { id:'bajra_grain', name:'Bajra (Pearl Millet)', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:361, protein:11, carbs:67, fat:5, fiber:1.3 },
