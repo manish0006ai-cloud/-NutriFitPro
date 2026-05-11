@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useFoodLog } from '../../context/FoodLogContext';
 import { searchLocalFoods } from '../../lib/foodDatabase';
-import { MEAL_TYPES, EGG_SIZES } from '../../lib/constants';
+import { MEAL_TYPES, EGG_SIZES, EGG_WHITE_SIZES, ROTI_SIZES } from '../../lib/constants';
 
 export default function VoiceLogger() {
   const { addFood } = useFoodLog();
@@ -89,7 +89,7 @@ export default function VoiceLogger() {
         let quantity = 100;
         let sizeLabel = null;
 
-        if (food.name.toLowerCase().includes('egg')) {
+        if (food.id === 'eggs_whole' || food.name.toLowerCase() === 'whole eggs') {
           const size = EGG_SIZES.find(s => text.includes(s.id) || text.includes(s.label.toLowerCase()));
           let count = 1;
           const match = text.match(/(\d+)\s*(egg|small|medium|large)/);
@@ -97,11 +97,23 @@ export default function VoiceLogger() {
 
           if (size) {
             quantity = size.weight * count;
+            sizeLabel = count > 1 ? `${count}x ${size.label} Whole` : `${size.label} Whole`;
+          } else {
+            quantity = 50 * count;
+            if (count > 1) sizeLabel = `${count}x Whole Eggs`;
+          }
+        } else if (food.id === 'egg_whites' || food.name.toLowerCase() === 'egg whites') {
+          const size = EGG_WHITE_SIZES.find(s => text.includes(s.id) || text.includes(s.label.toLowerCase()));
+          let count = 1;
+          const match = text.match(/(\d+)\s*(white|small|medium|large)/);
+          if (match) count = parseInt(match[1]);
+
+          if (size) {
+            quantity = size.weight * count;
             sizeLabel = count > 1 ? `${count}x ${size.label}` : size.label;
           } else {
-            // Default to medium weight (50g) if count is mentioned but no size
-            quantity = 50 * count;
-            if (count > 1) sizeLabel = `${count}x Eggs`;
+            quantity = 33 * count;
+            if (count > 1) sizeLabel = `${count}x Egg Whites`;
           }
         } else if (food.name.toLowerCase().includes('chapati') || food.name.toLowerCase().includes('roti') || food.name.toLowerCase().includes('bhakri')) {
           const size = ROTI_SIZES.find(s => text.includes(s.id) || text.includes(s.label.toLowerCase()));

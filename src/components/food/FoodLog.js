@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react';
 import { useFoodLog } from '../../context/FoodLogContext';
 import { useUser } from '../../context/UserContext';
 import { searchLocalFoods } from '../../lib/foodDatabase';
-import { MEAL_TYPES, EGG_SIZES, ROTI_SIZES } from '../../lib/constants';
+import { MEAL_TYPES, EGG_SIZES, EGG_WHITE_SIZES, ROTI_SIZES } from '../../lib/constants';
 import VoiceLogger from './VoiceLogger';
 
 export default function FoodLog() {
@@ -39,8 +39,11 @@ export default function FoodLog() {
   const handleAddFood = () => {
     if (!selectedFood) return;
     const itemToAdd = { ...selectedFood, quantity, unit: 'g', loggedAt: new Date().toISOString() };
-    if (selectedFood.name.toLowerCase().includes('egg')) {
+    if (selectedFood.id === 'eggs_whole' || selectedFood.name.toLowerCase() === 'whole eggs') {
       const size = EGG_SIZES.find(s => s.weight === Math.round(quantity / eggCount));
+      if (size) itemToAdd.sizeLabel = eggCount > 1 ? `${eggCount}x ${size.label} Whole` : `${size.label} Whole`;
+    } else if (selectedFood.id === 'egg_whites' || selectedFood.name.toLowerCase() === 'egg whites') {
+      const size = EGG_WHITE_SIZES.find(s => s.weight === Math.round(quantity / eggCount));
       if (size) itemToAdd.sizeLabel = eggCount > 1 ? `${eggCount}x ${size.label}` : size.label;
     } else if (selectedFood.name.toLowerCase().includes('chapati') || selectedFood.name.toLowerCase().includes('roti') || selectedFood.name.toLowerCase().includes('bhakri')) {
       const size = ROTI_SIZES.find(s => s.weight === Math.round(quantity / eggCount));
@@ -154,7 +157,9 @@ export default function FoodLog() {
                           <div style={{ flex: 1 }}>
                             <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: 8 }}>Select Size:</label>
                             <div style={{ display: 'flex', gap: 8 }}>
-                              {(selectedFood.name.toLowerCase().includes('egg') ? EGG_SIZES : ROTI_SIZES).map(size => (
+                              {(selectedFood.id === 'egg_whites' || selectedFood.name.toLowerCase() === 'egg whites' ? EGG_WHITE_SIZES : 
+                                 selectedFood.id === 'eggs_whole' || selectedFood.name.toLowerCase() === 'whole eggs' ? EGG_SIZES : 
+                                 ROTI_SIZES).map(size => (
                                 <button
                                   key={size.id}
                                   className={`btn btn-sm ${Math.round(quantity/eggCount) === size.weight ? 'btn-primary' : 'btn-secondary'}`}
@@ -178,7 +183,9 @@ export default function FoodLog() {
                                 const currentSingleWeight = Math.round(quantity / eggCount);
                                 setEggCount(val);
                                 // If it was a standard size, maintain that size weight
-                                const sizes = selectedFood.name.toLowerCase().includes('egg') ? EGG_SIZES : ROTI_SIZES;
+                                const sizes = selectedFood.id === 'egg_whites' || selectedFood.name.toLowerCase() === 'egg whites' ? EGG_WHITE_SIZES : 
+                                             selectedFood.id === 'eggs_whole' || selectedFood.name.toLowerCase() === 'whole eggs' ? EGG_SIZES : 
+                                             ROTI_SIZES;
                                 const standardSize = sizes.find(s => s.weight === currentSingleWeight);
                                 if (standardSize) {
                                   setQuantity(standardSize.weight * val);

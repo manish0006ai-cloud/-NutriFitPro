@@ -101,6 +101,12 @@ export const EGG_SIZES = [
   { id: 'large', label: 'Large', weight: 60 },
 ];
 
+export const EGG_WHITE_SIZES = [
+  { id: 'small', label: 'Small', weight: 25 },
+  { id: 'medium', label: 'Medium', weight: 33 },
+  { id: 'large', label: 'Large', weight: 40 },
+];
+
 export const ROTI_SIZES = [
   { id: 'small', label: 'Small', weight: 25 },
   { id: 'medium', label: 'Medium', weight: 45 },

@@ -2,7 +2,7 @@
 const gymFoods = [
   // HIGH PROTEIN
   { id:'chicken_breast', name:'Chicken Breast (Grilled)', category:'protein', diet:['non_veg'], traffic:'green', cal:165, protein:31, carbs:0, fat:3.6, fiber:0, vitC:0, calcium:15, iron:1, vitB6:0.6, vitB12:0.3 },
-  { id:'eggs_whole', name:'Whole Eggs', category:'protein', diet:['non_veg'], traffic:'green', cal:155, protein:13, carbs:1.1, fat:11, fiber:0, vitC:0, calcium:56, iron:1.8, vitB6:0.1, vitB12:0.9 },
+  { id:'eggs_whole', name:'Whole Eggs', category:'protein', diet:['non_veg'], traffic:'green', cal:143, protein:12.6, carbs:0.7, fat:9.5, fiber:0, vitC:0, calcium:56, iron:1.8, vitB6:0.1, vitB12:0.9 },
   { id:'egg_whites', name:'Egg Whites', category:'protein', diet:['non_veg'], traffic:'green', cal:52, protein:11, carbs:0.7, fat:0.2, fiber:0, vitC:0, calcium:7, iron:0.1, vitB6:0, vitB12:0.1 },
   { id:'greek_yogurt', name:'Greek Yogurt (Plain)', category:'protein', diet:['non_veg','veg'], traffic:'green', cal:59, protein:10, carbs:3.6, fat:0.4, fiber:0, vitC:0, calcium:110, iron:0.1, vitB6:0.1, vitB12:0.8 },
   { id:'cottage_cheese', name:'Cottage Cheese (Paneer)', category:'protein', diet:['veg'], traffic:'green', cal:265, protein:18, carbs:1.2, fat:21, fiber:0, vitC:0, calcium:480, iron:0.2, vitB6:0, vitB12:0.8 },
