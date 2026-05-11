@@ -40,18 +40,28 @@ export default function Dashboard() {
             setCurrentDate(d.toISOString().split('T')[0]);
           }}>←</button>
           <div style={{ textAlign: 'center', minWidth: 140, position: 'relative' }}>
-            <label style={{ cursor: 'pointer' }}>
+            <div 
+              style={{ cursor: 'pointer' }}
+              onClick={(e) => {
+                const input = e.currentTarget.querySelector('input');
+                if (input.showPicker) {
+                  input.showPicker();
+                } else {
+                  input.click();
+                }
+              }}
+            >
               <div style={{ fontSize: '1rem', fontWeight: 700 }}>
                 {currentDate === new Date().toISOString().split('T')[0] ? 'Today' : new Date(currentDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
               </div>
               <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{currentDate}</div>
               <input 
                 type="date" 
-                style={{ position: 'absolute', opacity: 0, inset: 0, cursor: 'pointer' }} 
+                style={{ position: 'absolute', opacity: 0, width: 0, height: 0 }} 
                 value={currentDate}
                 onChange={(e) => setCurrentDate(e.target.value)}
               />
-            </label>
+            </div>
           </div>
           <button className="btn btn-sm btn-secondary" onClick={() => {
             const d = new Date(currentDate);
