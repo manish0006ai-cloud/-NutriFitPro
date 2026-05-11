@@ -100,3 +100,9 @@ export const EGG_SIZES = [
   { id: 'medium', label: 'Medium', weight: 50 },
   { id: 'large', label: 'Large', weight: 60 },
 ];
+
+export const ROTI_SIZES = [
+  { id: 'small', label: 'Small', weight: 25 },
+  { id: 'medium', label: 'Medium', weight: 45 },
+  { id: 'large', label: 'Large', weight: 65 },
+];

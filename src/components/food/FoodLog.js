@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react';
 import { useFoodLog } from '../../context/FoodLogContext';
 import { useUser } from '../../context/UserContext';
 import { searchLocalFoods } from '../../lib/foodDatabase';
-import { MEAL_TYPES, EGG_SIZES } from '../../lib/constants';
+import { MEAL_TYPES, EGG_SIZES, ROTI_SIZES } from '../../lib/constants';
 import VoiceLogger from './VoiceLogger';
 
 export default function FoodLog() {
@@ -42,6 +42,10 @@ export default function FoodLog() {
     if (selectedFood.name.toLowerCase().includes('egg')) {
       const size = EGG_SIZES.find(s => s.weight === Math.round(quantity / eggCount));
       if (size) itemToAdd.sizeLabel = eggCount > 1 ? `${eggCount}x ${size.label}` : size.label;
+    } else if (selectedFood.name.toLowerCase().includes('chapati') || selectedFood.name.toLowerCase().includes('roti') || selectedFood.name.toLowerCase().includes('bhakri')) {
+      const size = ROTI_SIZES.find(s => s.weight === Math.round(quantity / eggCount));
+      const label = selectedFood.name.toLowerCase().includes('chapati') ? 'Chapati' : selectedFood.name.toLowerCase().includes('bhakri') ? 'Bhakri' : 'Roti';
+      if (size) itemToAdd.sizeLabel = eggCount > 1 ? `${eggCount}x ${size.label} ${label}` : `${size.label} ${label}`;
     }
     addFood(selectedMeal, itemToAdd);
     setSelectedFood(null);
@@ -101,7 +105,7 @@ export default function FoodLog() {
                     <div>
                       <div className="food-log-name">{item.name}</div>
                       <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
-                        {item.sizeLabel ? `${item.sizeLabel} Egg (${item.quantity}g)` : `${item.quantity}g`}
+                        {item.sizeLabel ? `${item.sizeLabel} (${item.quantity}g)` : `${item.quantity}g`}
                       </div>
                     </div>
                     <div className="food-log-macros">
@@ -144,13 +148,13 @@ export default function FoodLog() {
                       <input className="input" type="number" value={quantity} onChange={e => setQuantity(+e.target.value)} min={1} />
                     </div>
 
-                    {selectedFood.name.toLowerCase().includes('egg') && (
+                    {(selectedFood.name.toLowerCase().includes('egg') || selectedFood.name.toLowerCase().includes('chapati') || selectedFood.name.toLowerCase().includes('roti') || selectedFood.name.toLowerCase().includes('bhakri')) && (
                       <div style={{ marginBottom: 16 }}>
                         <div style={{ display: 'flex', gap: 16, marginBottom: 12 }}>
                           <div style={{ flex: 1 }}>
                             <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: 8 }}>Select Size:</label>
                             <div style={{ display: 'flex', gap: 8 }}>
-                              {EGG_SIZES.map(size => (
+                              {(selectedFood.name.toLowerCase().includes('egg') ? EGG_SIZES : ROTI_SIZES).map(size => (
                                 <button
                                   key={size.id}
                                   className={`btn btn-sm ${Math.round(quantity/eggCount) === size.weight ? 'btn-primary' : 'btn-secondary'}`}
@@ -174,7 +178,8 @@ export default function FoodLog() {
                                 const currentSingleWeight = Math.round(quantity / eggCount);
                                 setEggCount(val);
                                 // If it was a standard size, maintain that size weight
-                                const standardSize = EGG_SIZES.find(s => s.weight === currentSingleWeight);
+                                const sizes = selectedFood.name.toLowerCase().includes('egg') ? EGG_SIZES : ROTI_SIZES;
+                                const standardSize = sizes.find(s => s.weight === currentSingleWeight);
                                 if (standardSize) {
                                   setQuantity(standardSize.weight * val);
                                 }

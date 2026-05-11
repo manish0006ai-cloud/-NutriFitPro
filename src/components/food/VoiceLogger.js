@@ -103,6 +103,23 @@ export default function VoiceLogger() {
             quantity = 50 * count;
             if (count > 1) sizeLabel = `${count}x Eggs`;
           }
+        } else if (food.name.toLowerCase().includes('chapati') || food.name.toLowerCase().includes('roti') || food.name.toLowerCase().includes('bhakri')) {
+          const size = ROTI_SIZES.find(s => text.includes(s.id) || text.includes(s.label.toLowerCase()));
+          let count = 1;
+          // Match digits before keywords
+          const match = text.match(/(\d+)\s*(chapati|roti|bhakri|small|medium|large)/);
+          if (match) count = parseInt(match[1]);
+
+          const label = food.name.toLowerCase().includes('chapati') ? 'Chapati' : food.name.toLowerCase().includes('bhakri') ? 'Bhakri' : 'Roti';
+          
+          if (size) {
+            quantity = size.weight * count;
+            sizeLabel = count > 1 ? `${count}x ${size.label} ${label}` : `${size.label} ${label}`;
+          } else {
+            // Default to medium weight (45g) if count is mentioned but no size
+            quantity = 45 * count;
+            if (count > 1) sizeLabel = `${count}x ${label}s`;
+          }
         }
 
         addFood(selectedMeal, { ...food, quantity, sizeLabel, unit: 'g', loggedAt: new Date().toISOString() });
