@@ -13,8 +13,11 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'LOAD_PROFILE':
-      return { ...state, profile: action.payload, isOnboarded: !!action.payload };
+    case 'LOAD_PROFILE': {
+      const targets = calculateTargets(action.payload);
+      const full = { ...action.payload, ...targets };
+      return { ...state, profile: full, isOnboarded: true };
+    }
     case 'SET_PROFILE': {
       const targets = calculateTargets(action.payload);
       const full = { ...action.payload, ...targets };
