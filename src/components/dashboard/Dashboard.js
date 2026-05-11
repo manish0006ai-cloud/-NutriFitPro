@@ -102,7 +102,7 @@ export default function Dashboard() {
         <div className="card">
           <div className="card-header">
             <span className="card-title">💧 Hydration</span>
-            <span className="card-subtitle">{water} / {targets.water || 8} glasses</span>
+            <span className="card-subtitle">{water} / {targets.water || 8} glasses ({(water * 0.25).toFixed(1)} / {((targets.water || 8) * 0.25).toFixed(1)} L)</span>
           </div>
           <div className="water-grid">
             {Array.from({ length: targets.water || 8 }).map((_, i) => (
