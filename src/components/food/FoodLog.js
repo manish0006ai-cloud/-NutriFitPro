@@ -80,23 +80,21 @@ export default function FoodLog() {
 
   return (
     <div className="animate-fade">
-      <div className="flex-between" style={{ marginBottom: 24, background: 'var(--bg-glass)', padding: '12px 20px', borderRadius: 'var(--radius)' }}>
+      <div className="flex-between" style={{ marginBottom: 24, background: 'var(--bg-glass)', padding: '16px 24px', borderRadius: 'var(--radius)', border: '1px solid var(--border)' }}>
+        <h1 style={{ fontSize: '1.5rem', fontWeight: 800, margin: 0 }}>🍽️ Food Log</h1>
+        
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <button className="btn btn-sm btn-secondary" onClick={() => {
             const d = new Date(currentDate);
             d.setDate(d.getDate() - 1);
             setCurrentDate(d.toISOString().split('T')[0]);
           }}>←</button>
-          <div style={{ textAlign: 'center', minWidth: 140, position: 'relative' }}>
+          <div style={{ textAlign: 'center', minWidth: 120, position: 'relative' }}>
             <div 
               style={{ cursor: 'pointer' }}
               onClick={(e) => {
                 const input = e.currentTarget.querySelector('input');
-                if (input.showPicker) {
-                  input.showPicker();
-                } else {
-                  input.click();
-                }
+                if (input.showPicker) input.showPicker(); else input.click();
               }}
             >
               <div style={{ fontSize: '1rem', fontWeight: 700 }}>
@@ -117,10 +115,8 @@ export default function FoodLog() {
             setCurrentDate(d.toISOString().split('T')[0]);
           }}>→</button>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <VoiceLogger />
-          <button className="btn btn-primary" onClick={() => setShowSearch(true)}>+ Add Food</button>
-        </div>
+
+        <button className="btn btn-primary" onClick={() => setShowSearch(true)}>+ Add Food</button>
       </div>
 
       {/* Quick Stats */}
@@ -149,7 +145,10 @@ export default function FoodLog() {
                 <span className="card-title">{mt.label}</span>
                 <span className="badge badge-blue" style={{ marginLeft: 8 }}>{items.length} items</span>
               </div>
-              <button className="btn btn-sm btn-secondary" onClick={() => { setSelectedMeal(mt.id); setShowSearch(true); }}>+ Add</button>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <VoiceLogger fixedMealType={mt.id} />
+                <button className="btn btn-sm btn-secondary" onClick={() => { setSelectedMeal(mt.id); setShowSearch(true); }}>+ Add</button>
+              </div>
             </div>
             {items.length === 0 ? (
               <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', padding: '8px 0' }}>No food logged</p>

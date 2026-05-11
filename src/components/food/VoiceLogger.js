@@ -4,7 +4,7 @@ import { useFoodLog } from '../../context/FoodLogContext';
 import { searchLocalFoods } from '../../lib/foodDatabase';
 import { MEAL_TYPES, EGG_SIZES, EGG_WHITE_SIZES, ROTI_SIZES } from '../../lib/constants';
 
-export default function VoiceLogger() {
+export default function VoiceLogger({ fixedMealType = null }) {
   const { addFood } = useFoodLog();
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState('');
@@ -52,20 +52,23 @@ export default function VoiceLogger() {
     setStatus('Processing: "' + text + '"');
     
     // 1. Identify Meal
-    let selectedMeal = 'breakfast'; // default
-    const mealKeywords = {
-      breakfast: ['breakfast', 'breafast', 'brekfast', 'morning meal'],
-      lunch: ['lunch', 'luch', 'afternoon meal'],
-      pre_workout: ['pre workout', 'preworkout', 'pre-workout', 'before workout'],
-      post_workout: ['post workout', 'postworkout', 'post-workout', 'after workout'],
-      dinner: ['dinner', 'diner', 'night meal'],
-      snacks: ['snack', 'snacks', 'munchies']
-    };
+    let selectedMeal = fixedMealType || 'breakfast';
+    
+    if (!fixedMealType) {
+      const mealKeywords = {
+        breakfast: ['breakfast', 'breafast', 'brekfast', 'morning meal'],
+        lunch: ['lunch', 'luch', 'afternoon meal'],
+        pre_workout: ['pre workout', 'preworkout', 'pre-workout', 'before workout'],
+        post_workout: ['post workout', 'postworkout', 'post-workout', 'after workout'],
+        dinner: ['dinner', 'diner', 'night meal'],
+        snacks: ['snack', 'snacks', 'munchies']
+      };
 
-    for (const [meal, keywords] of Object.entries(mealKeywords)) {
-      if (keywords.some(kw => text.includes(kw))) {
-        selectedMeal = meal;
-        break;
+      for (const [meal, keywords] of Object.entries(mealKeywords)) {
+        if (keywords.some(kw => text.includes(kw))) {
+          selectedMeal = meal;
+          break;
+        }
       }
     }
 
@@ -176,14 +179,15 @@ export default function VoiceLogger() {
         onClick={isListening ? () => recognitionRef.current.stop() : startListening}
         style={{ 
           borderRadius: '50%', 
-          width: 48, 
-          height: 48, 
+          width: fixedMealType ? 32 : 48, 
+          height: fixedMealType ? 32 : 48, 
           padding: 0,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           boxShadow: isListening ? '0 0 15px var(--danger)' : 'none',
-          animation: isListening ? 'pulse 1.5s infinite' : 'none'
+          animation: isListening ? 'pulse 1.5s infinite' : 'none',
+          fontSize: fixedMealType ? '0.9rem' : '1.1rem'
         }}
       >
         {isListening ? '🛑' : '🎤'}
