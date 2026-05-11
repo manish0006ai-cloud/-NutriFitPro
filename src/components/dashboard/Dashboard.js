@@ -14,7 +14,7 @@ const MacroPie = dynamic(() => import('./MacroPie'), { ssr: false });
 
 export default function Dashboard() {
   const { profile, isTrainingDay, dispatch: userDispatch } = useUser();
-  const { totals, water, setWater, meals, supplements, toggleSupplement } = useFoodLog();
+  const { totals, water, setWater, meals, supplements, toggleSupplement, currentDate, setCurrentDate } = useFoodLog();
 
   const targets = useMemo(() => {
     if (!profile) return { calories: 2000, protein: 150, carbs: 250, fat: 70, fiber: 30, water: 40 };
@@ -32,20 +32,34 @@ export default function Dashboard() {
 
   return (
     <div className="animate-fade">
-      <div className="flex-between" style={{ marginBottom: 24 }}>
-        <div>
-          <h1 style={{ fontSize: '1.8rem', fontWeight: 800 }}>Welcome back, {profile.name || 'Champ'} 💪</h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-            {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
-          </p>
+      <div className="flex-between" style={{ marginBottom: 24, background: 'var(--bg-glass)', padding: '12px 20px', borderRadius: 'var(--radius)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <button className="btn btn-sm btn-secondary" onClick={() => {
+            const d = new Date(currentDate);
+            d.setDate(d.getDate() - 1);
+            setCurrentDate(d.toISOString().split('T')[0]);
+          }}>←</button>
+          <div style={{ textAlign: 'center', minWidth: 140 }}>
+            <div style={{ fontSize: '1rem', fontWeight: 700 }}>
+              {currentDate === new Date().toISOString().split('T')[0] ? 'Today' : new Date(currentDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+            </div>
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{currentDate}</div>
+          </div>
+          <button className="btn btn-sm btn-secondary" onClick={() => {
+            const d = new Date(currentDate);
+            d.setDate(d.getDate() + 1);
+            setCurrentDate(d.toISOString().split('T')[0]);
+          }}>→</button>
         </div>
-        <div className="flex-center gap-sm">
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Rest</span>
-          <button className={`toggle ${isTrainingDay ? 'active' : ''}`}
-            onClick={() => userDispatch({ type: 'TOGGLE_TRAINING_DAY' })}>
-            <div className="toggle-knob" />
-          </button>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Training</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <div className="flex-center gap-sm">
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Rest</span>
+            <button className={`toggle ${isTrainingDay ? 'active' : ''}`}
+              onClick={() => userDispatch({ type: 'TOGGLE_TRAINING_DAY' })}>
+              <div className="toggle-knob" />
+            </button>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Training</span>
+          </div>
         </div>
       </div>
 

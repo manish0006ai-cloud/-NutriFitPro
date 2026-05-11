@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useContext, useReducer, useEffect, useCallback } from 'react';
+import { createContext, useContext, useReducer, useEffect, useCallback, useState } from 'react';
 import { getDayLog, saveDayLog, getTodayKey } from '../lib/storage';
 
 const FoodLogContext = createContext(null);
@@ -70,12 +70,13 @@ function reducer(state, action) {
 }
 
 export function FoodLogProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, getDayLog());
+  const [currentDate, setCurrentDate] = useState(getTodayKey());
+  const [state, dispatch] = useReducer(reducer, getDayLog(getTodayKey()));
 
   useEffect(() => {
-    const log = getDayLog(getTodayKey());
+    const log = getDayLog(currentDate);
     dispatch({ type: 'LOAD_LOG', payload: log });
-  }, []);
+  }, [currentDate]);
 
   const addFood = useCallback((mealType, food) => {
     dispatch({ type: 'ADD_FOOD', payload: { mealType, food } });
@@ -98,7 +99,7 @@ export function FoodLogProvider({ children }) {
   }, []);
 
   return (
-    <FoodLogContext.Provider value={{ ...state, addFood, removeFood, updateFood, setWater, toggleSupplement, dispatch }}>
+    <FoodLogContext.Provider value={{ ...state, currentDate, setCurrentDate, addFood, removeFood, updateFood, setWater, toggleSupplement, dispatch }}>
       {children}
     </FoodLogContext.Provider>
   );

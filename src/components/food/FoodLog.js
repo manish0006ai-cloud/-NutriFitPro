@@ -7,7 +7,7 @@ import { MEAL_TYPES, EGG_SIZES, EGG_WHITE_SIZES, ROTI_SIZES } from '../../lib/co
 import VoiceLogger from './VoiceLogger';
 
 export default function FoodLog() {
-  const { meals, totals, addFood, removeFood, updateFood } = useFoodLog();
+  const { meals, totals, addFood, removeFood, updateFood, currentDate, setCurrentDate } = useFoodLog();
   const { profile } = useUser();
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -80,12 +80,29 @@ export default function FoodLog() {
 
   return (
     <div className="animate-fade">
-      <div className="flex-between" style={{ marginBottom: 24 }}>
+      <div className="flex-between" style={{ marginBottom: 24, background: 'var(--bg-glass)', padding: '12px 20px', borderRadius: 'var(--radius)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <h1 style={{ fontSize: '1.5rem', fontWeight: 800 }}>🍽️ Food Log</h1>
-          <VoiceLogger />
+          <button className="btn btn-sm btn-secondary" onClick={() => {
+            const d = new Date(currentDate);
+            d.setDate(d.getDate() - 1);
+            setCurrentDate(d.toISOString().split('T')[0]);
+          }}>←</button>
+          <div style={{ textAlign: 'center', minWidth: 140 }}>
+            <div style={{ fontSize: '1rem', fontWeight: 700 }}>
+              {currentDate === new Date().toISOString().split('T')[0] ? 'Today' : new Date(currentDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+            </div>
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{currentDate}</div>
+          </div>
+          <button className="btn btn-sm btn-secondary" onClick={() => {
+            const d = new Date(currentDate);
+            d.setDate(d.getDate() + 1);
+            setCurrentDate(d.toISOString().split('T')[0]);
+          }}>→</button>
         </div>
-        <button className="btn btn-primary" onClick={() => setShowSearch(true)}>+ Add Food</button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <VoiceLogger />
+          <button className="btn btn-primary" onClick={() => setShowSearch(true)}>+ Add Food</button>
+        </div>
       </div>
 
       {/* Quick Stats */}
