@@ -29,7 +29,7 @@ export function calculateMacros(calories, goal, weightKg) {
   const carbRatio = ratios.carbs / (ratios.fat + ratios.carbs);
   const fat = Math.round((remainingCals * fatRatio) / 9);
   const carbs = Math.round((remainingCals * carbRatio) / 4);
-  return { protein, carbs, fat, fiber: 30, water: 8 };
+  return { protein, carbs, fat, fiber: 30, water: 40 };
 }
 
 // Full profile calculation

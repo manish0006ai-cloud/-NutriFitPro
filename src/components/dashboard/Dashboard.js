@@ -17,7 +17,7 @@ export default function Dashboard() {
   const { totals, water, setWater, meals, supplements, toggleSupplement } = useFoodLog();
 
   const targets = useMemo(() => {
-    if (!profile) return { calories: 2000, protein: 150, carbs: 250, fat: 70, fiber: 30, water: 8 };
+    if (!profile) return { calories: 2000, protein: 150, carbs: 250, fat: 70, fiber: 30, water: 40 };
     return isTrainingDay ? getTrainingDayTargets(profile.dailyTargets) : profile.dailyTargets;
   }, [profile, isTrainingDay]);
 
@@ -102,11 +102,12 @@ export default function Dashboard() {
         <div className="card">
           <div className="card-header">
             <span className="card-title">💧 Hydration</span>
-            <span className="card-subtitle">{water} / {targets.water || 8} glasses ({(water * 0.25).toFixed(1)} / {((targets.water || 8) * 0.25).toFixed(1)} L)</span>
+            <span className="card-subtitle">{water} / {targets.water || 40} glasses ({(water * 0.25).toFixed(1)} / {((targets.water || 40) * 0.25).toFixed(1)} L)</span>
           </div>
           <div className="water-grid">
-            {Array.from({ length: targets.water || 8 }).map((_, i) => (
+            {Array.from({ length: targets.water || 40 }).map((_, i) => (
               <button key={i} className={`water-glass ${i < water ? 'filled' : ''}`}
+                style={{ width: 28, height: 28, fontSize: '0.8rem' }}
                 onClick={() => setWater(i < water ? i : i + 1)}>
                 💧
               </button>
