@@ -91,9 +91,17 @@ export default function VoiceLogger() {
 
         if (food.name.toLowerCase().includes('egg')) {
           const size = EGG_SIZES.find(s => text.includes(s.id) || text.includes(s.label.toLowerCase()));
+          let count = 1;
+          const match = text.match(/(\d+)\s*(egg|small|medium|large)/);
+          if (match) count = parseInt(match[1]);
+
           if (size) {
-            quantity = size.weight;
-            sizeLabel = size.label;
+            quantity = size.weight * count;
+            sizeLabel = count > 1 ? `${count}x ${size.label}` : size.label;
+          } else {
+            // Default to medium weight (50g) if count is mentioned but no size
+            quantity = 50 * count;
+            if (count > 1) sizeLabel = `${count}x Eggs`;
           }
         }
 

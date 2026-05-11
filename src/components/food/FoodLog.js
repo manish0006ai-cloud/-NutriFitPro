@@ -15,6 +15,7 @@ export default function FoodLog() {
   const [showSearch, setShowSearch] = useState(false);
   const [selectedFood, setSelectedFood] = useState(null);
   const [quantity, setQuantity] = useState(100);
+  const [eggCount, setEggCount] = useState(1);
   const [apiResults, setApiResults] = useState([]);
   const [searching, setSearching] = useState(false);
 
@@ -39,12 +40,13 @@ export default function FoodLog() {
     if (!selectedFood) return;
     const itemToAdd = { ...selectedFood, quantity, unit: 'g', loggedAt: new Date().toISOString() };
     if (selectedFood.name.toLowerCase().includes('egg')) {
-      const size = EGG_SIZES.find(s => s.weight === quantity);
-      if (size) itemToAdd.sizeLabel = size.label;
+      const size = EGG_SIZES.find(s => s.weight === Math.round(quantity / eggCount));
+      if (size) itemToAdd.sizeLabel = eggCount > 1 ? `${eggCount}x ${size.label}` : size.label;
     }
     addFood(selectedMeal, itemToAdd);
     setSelectedFood(null);
     setQuantity(100);
+    setEggCount(1);
     setShowSearch(false);
     setSearchQuery('');
     setSearchResults([]);
@@ -144,18 +146,41 @@ export default function FoodLog() {
 
                     {selectedFood.name.toLowerCase().includes('egg') && (
                       <div style={{ marginBottom: 16 }}>
-                        <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: 8 }}>Select Size:</label>
-                        <div style={{ display: 'flex', gap: 8 }}>
-                          {EGG_SIZES.map(size => (
-                            <button
-                              key={size.id}
-                              className={`btn btn-sm ${quantity === size.weight ? 'btn-primary' : 'btn-secondary'}`}
-                              style={{ flex: 1, fontSize: '0.75rem' }}
-                              onClick={() => setQuantity(size.weight)}
-                            >
-                              {size.label} ({size.weight}g)
-                            </button>
-                          ))}
+                        <div style={{ display: 'flex', gap: 16, marginBottom: 12 }}>
+                          <div style={{ flex: 1 }}>
+                            <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: 8 }}>Select Size:</label>
+                            <div style={{ display: 'flex', gap: 8 }}>
+                              {EGG_SIZES.map(size => (
+                                <button
+                                  key={size.id}
+                                  className={`btn btn-sm ${Math.round(quantity/eggCount) === size.weight ? 'btn-primary' : 'btn-secondary'}`}
+                                  style={{ flex: 1, fontSize: '0.75rem', padding: '8px 4px' }}
+                                  onClick={() => setQuantity(size.weight * eggCount)}
+                                >
+                                  {size.label}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                          <div style={{ width: 100 }}>
+                            <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: 8 }}>Quantity:</label>
+                            <input 
+                              className="input" 
+                              type="number" 
+                              value={eggCount} 
+                              min={1} 
+                              onChange={e => {
+                                const val = Math.max(1, +e.target.value);
+                                const currentSingleWeight = Math.round(quantity / eggCount);
+                                setEggCount(val);
+                                // If it was a standard size, maintain that size weight
+                                const standardSize = EGG_SIZES.find(s => s.weight === currentSingleWeight);
+                                if (standardSize) {
+                                  setQuantity(standardSize.weight * val);
+                                }
+                              }} 
+                            />
+                          </div>
                         </div>
                       </div>
                     )}
