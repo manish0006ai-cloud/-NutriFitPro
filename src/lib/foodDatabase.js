@@ -98,6 +98,76 @@ const gymFoods = [
   { id:'capsicum', name:'Capsicum (Shimla Mirch)', category:'micro', diet:['veg','vegan'], traffic:'green', cal:20, protein:0.9, carbs:4.6, fat:0.2, fiber:1.7 },
   { id:'drumstick_leaves', name:'Drumstick Leaves', category:'micro', diet:['veg','vegan'], traffic:'green', cal:92, protein:6.7, carbs:13, fat:1.7, fiber:0.9 },
   { id:'coriander_leaves', name:'Coriander Leaves', category:'micro', diet:['veg','vegan'], traffic:'green', cal:23, protein:2.1, carbs:3.7, fat:0.5, fiber:2.8 },
+
+  // INDIAN BREAKFAST & SNACKS
+  { id:'poha', name:'Poha (Flattened Rice)', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:130, protein:2, carbs:25, fat:2.5, fiber:1 },
+  { id:'upma', name:'Upma (Semolina)', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:150, protein:3, carbs:28, fat:3, fiber:2 },
+  { id:'idli', name:'Idli (Steamed)', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:112, protein:3, carbs:24, fat:0.3, fiber:1 },
+  { id:'dosa_plain', name:'Dosa (Plain)', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:168, protein:4, carbs:29, fat:4, fiber:1.5 },
+  { id:'dosa_masala', name:'Masala Dosa', category:'meal', diet:['veg','vegan'], traffic:'yellow', cal:210, protein:5, carbs:35, fat:6, fiber:2.5 },
+  { id:'medu_vada', name:'Medu Vada (1 pc)', category:'avoid', diet:['veg','vegan'], traffic:'red', cal:97, protein:2, carbs:10, fat:6, fiber:1.5 },
+  { id:'aloo_paratha', name:'Aloo Paratha', category:'meal', diet:['veg'], traffic:'yellow', cal:290, protein:6, carbs:45, fat:10, fiber:3.5 },
+  { id:'paneer_paratha', name:'Paneer Paratha', category:'meal', diet:['veg'], traffic:'green', cal:310, protein:12, carbs:38, fat:12, fiber:3 },
+  { id:'puri_bhaji', name:'Puri Bhaji (2 puris)', category:'meal', diet:['veg'], traffic:'red', cal:350, protein:6, carbs:48, fat:15, fiber:4 },
+  { id:'dhokla', name:'Dhokla', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:160, protein:6, carbs:28, fat:3, fiber:1 },
+  { id:'thepla', name:'Thepla (Methi)', category:'carbs', diet:['veg'], traffic:'green', cal:180, protein:5, carbs:30, fat:5, fiber:3 },
+  { id:'samosa', name:'Samosa (1 pc)', category:'avoid', diet:['veg','vegan'], traffic:'red', cal:260, protein:4, carbs:32, fat:15, fiber:2 },
+  { id:'vada_pav', name:'Vada Pav', category:'avoid', diet:['veg','vegan'], traffic:'red', cal:300, protein:7, carbs:40, fat:12, fiber:3 },
+  { id:'pav_bhaji', name:'Pav Bhaji', category:'meal', diet:['veg'], traffic:'yellow', cal:400, protein:10, carbs:60, fat:15, fiber:6 },
+  { id:'bhel_puri', name:'Bhel Puri', category:'avoid', diet:['veg','vegan'], traffic:'yellow', cal:180, protein:4, carbs:30, fat:6, fiber:2 },
+  { id:'pakora_onion', name:'Onion Pakora (100g)', category:'avoid', diet:['veg','vegan'], traffic:'red', cal:315, protein:5, carbs:35, fat:18, fiber:3 },
+  { id:'misal_pav', name:'Misal Pav', category:'meal', diet:['veg','vegan'], traffic:'yellow', cal:450, protein:15, carbs:65, fat:18, fiber:8 },
+
+  // INDIAN MAIN COURSE (VEG)
+  { id:'paneer_butter_masala', name:'Paneer Butter Masala', category:'meal', diet:['veg'], traffic:'red', cal:350, protein:12, carbs:10, fat:28, fiber:2 },
+  { id:'palak_paneer', name:'Palak Paneer', category:'meal', diet:['veg'], traffic:'green', cal:190, protein:10, carbs:8, fat:14, fiber:4 },
+  { id:'dal_makhani', name:'Dal Makhani', category:'meal', diet:['veg'], traffic:'yellow', cal:160, protein:6, carbs:18, fat:8, fiber:5 },
+  { id:'baingan_bharta', name:'Baingan Bharta', category:'micro', diet:['veg','vegan'], traffic:'green', cal:102, protein:2, carbs:10, fat:7, fiber:4 },
+  { id:'aloo_gobi', name:'Aloo Gobi', category:'micro', diet:['veg','vegan'], traffic:'green', cal:110, protein:3, carbs:14, fat:5, fiber:3 },
+  { id:'bhindi_fry', name:'Bhindi Fry', category:'micro', diet:['veg','vegan'], traffic:'green', cal:120, protein:2, carbs:10, fat:8, fiber:3 },
+  { id:'rajma_masala', name:'Rajma Masala (Curry)', category:'meal', diet:['veg','vegan'], traffic:'green', cal:150, protein:7, carbs:22, fat:4, fiber:6 },
+  { id:'chana_masala', name:'Chana Masala', category:'meal', diet:['veg','vegan'], traffic:'green', cal:160, protein:7, carbs:25, fat:5, fiber:7 },
+  
+  // INDIAN MAIN COURSE (NON-VEG)
+  { id:'butter_chicken', name:'Butter Chicken', category:'meal', diet:['non_veg'], traffic:'red', cal:320, protein:18, carbs:8, fat:24, fiber:1 },
+  { id:'chicken_curry', name:'Chicken Curry (Home Style)', category:'meal', diet:['non_veg'], traffic:'green', cal:180, protein:20, carbs:6, fat:10, fiber:1 },
+  { id:'chicken_biryani', name:'Chicken Biryani', category:'meal', diet:['non_veg'], traffic:'yellow', cal:200, protein:12, carbs:24, fat:8, fiber:2 },
+  { id:'mutton_biryani', name:'Mutton Biryani', category:'meal', diet:['non_veg'], traffic:'red', cal:240, protein:14, carbs:24, fat:12, fiber:2 },
+  { id:'fish_fry_indian', name:'Fish Fry (Indian Style)', category:'protein', diet:['non_veg'], traffic:'yellow', cal:220, protein:22, carbs:5, fat:12, fiber:0.5 },
+  { id:'egg_curry', name:'Egg Curry (2 eggs)', category:'meal', diet:['non_veg'], traffic:'green', cal:250, protein:14, carbs:8, fat:18, fiber:1 },
+
+  // INDIAN SWEETS (MITHAI) - Per 100g
+  { id:'gulab_jamun', name:'Gulab Jamun', category:'avoid', diet:['veg'], traffic:'red', cal:320, protein:5, carbs:55, fat:10, fiber:0.5 },
+  { id:'jalebi', name:'Jalebi', category:'avoid', diet:['veg'], traffic:'red', cal:450, protein:2, carbs:75, fat:15, fiber:0 },
+  { id:'rasgulla', name:'Rasgulla', category:'avoid', diet:['veg'], traffic:'red', cal:186, protein:4, carbs:40, fat:1.5, fiber:0 },
+  { id:'kaju_katli', name:'Kaju Katli', category:'avoid', diet:['veg'], traffic:'red', cal:400, protein:10, carbs:50, fat:20, fiber:1 },
+  { id:'besan_laddu', name:'Besan Laddu', category:'avoid', diet:['veg'], traffic:'red', cal:490, protein:8, carbs:55, fat:28, fiber:2 },
+  { id:'kheer', name:'Kheer (Rice Pudding)', category:'avoid', diet:['veg'], traffic:'yellow', cal:150, protein:4, carbs:22, fat:5, fiber:0.5 },
+  { id:'gajar_halwa', name:'Gajar Halwa', category:'avoid', diet:['veg'], traffic:'red', cal:330, protein:4, carbs:45, fat:15, fiber:2 },
+  { id:'rasmalai', name:'Rasmalai', category:'avoid', diet:['veg'], traffic:'red', cal:250, protein:8, carbs:35, fat:10, fiber:0 },
+  { id:'mysore_pak', name:'Mysore Pak', category:'avoid', diet:['veg'], traffic:'red', cal:540, protein:4, carbs:55, fat:35, fiber:1 },
+  { id:'shrikhand', name:'Shrikhand', category:'avoid', diet:['veg'], traffic:'red', cal:230, protein:6, carbs:40, fat:5, fiber:0 },
+  { id:'modak', name:'Modak (Steamed)', category:'avoid', diet:['veg'], traffic:'yellow', cal:180, protein:3, carbs:35, fat:4, fiber:2 },
+  { id:'payasam', name:'Payasam', category:'avoid', diet:['veg'], traffic:'yellow', cal:160, protein:3, carbs:28, fat:4, fiber:0.5 },
+
+  // SOUTH INDIAN STAPLES & OTHERS
+  { id:'uttapam', name:'Uttapam (Veg)', category:'meal', diet:['veg','vegan'], traffic:'green', cal:180, protein:4, carbs:30, fat:5, fiber:2 },
+  { id:'pongal', name:'Ven Pongal', category:'meal', diet:['veg'], traffic:'yellow', cal:210, protein:5, carbs:35, fat:6, fiber:1.5 },
+  { id:'sambhar', name:'Sambhar (Bowl)', category:'micro', diet:['veg','vegan'], traffic:'green', cal:80, protein:3, carbs:12, fat:2, fiber:3 },
+  { id:'rasam', name:'Rasam (Bowl)', category:'micro', diet:['veg','vegan'], traffic:'green', cal:40, protein:1, carbs:6, fat:1.5, fiber:1 },
+  { id:'lemon_rice', name:'Lemon Rice', category:'carbs', diet:['veg','vegan'], traffic:'green', cal:150, protein:3, carbs:28, fat:4, fiber:1 },
+  { id:'curd_rice', name:'Curd Rice', category:'meal', diet:['veg'], traffic:'green', cal:120, protein:4, carbs:20, fat:3, fiber:0.5 },
+
+  // NORTH INDIAN SNACKS & OTHERS
+  { id:'chole_bhature', name:'Chole Bhature (2 bhature)', category:'avoid', diet:['veg'], traffic:'red', cal:550, protein:12, carbs:70, fat:25, fiber:8 },
+  { id:'kachori', name:'Kachori (1 pc)', category:'avoid', diet:['veg','vegan'], traffic:'red', cal:190, protein:3, carbs:20, fat:12, fiber:1.5 },
+  { id:'bread_pakora', name:'Bread Pakora (1 pc)', category:'avoid', diet:['veg'], traffic:'red', cal:220, protein:5, carbs:25, fat:12, fiber:1 },
+
+  // INDIAN BEVERAGES (Per 100ml)
+  { id:'masala_tea', name:'Masala Tea (with Milk/Sugar)', category:'avoid', diet:['veg'], traffic:'yellow', cal:60, protein:1.5, carbs:10, fat:1.5, fiber:0 },
+  { id:'lassi_sweet', name:'Lassi (Sweet)', category:'avoid', diet:['veg'], traffic:'red', cal:120, protein:3, carbs:18, fat:4, fiber:0 },
+  { id:'chaas', name:'Chaas (Buttermilk)', category:'micro', diet:['veg'], traffic:'green', cal:30, protein:1, carbs:2, fat:1.5, fiber:0 },
+  { id:'badam_milk', name:'Badam Milk', category:'avoid', diet:['veg'], traffic:'yellow', cal:150, protein:5, carbs:15, fat:8, fiber:1 },
 ];
 
 export default gymFoods;
