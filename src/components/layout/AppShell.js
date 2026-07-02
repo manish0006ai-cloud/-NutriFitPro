@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { useSession, signOut } from 'next-auth/react';
 import Dashboard from '../../components/dashboard/Dashboard';
 import FoodLog from '../../components/food/FoodLog';
 import MealPlans from '../../components/meals/MealPlans';
@@ -18,6 +19,7 @@ const PAGES = [
 
 export default function AppShell({ initialPage = 'dashboard' }) {
   const [activePage, setActivePage] = useState(initialPage);
+  const { data: session } = useSession();
 
   const renderPage = () => {
     switch (activePage) {
@@ -59,6 +61,19 @@ export default function AppShell({ initialPage = 'dashboard' }) {
 
       {/* Main Content */}
       <main className="main-content animate-fade">
+        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: '24px', gap: '16px' }}>
+          {session?.user?.name && (
+            <span style={{ fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
+              Welcome, <strong style={{ color: 'var(--text-primary)' }}>{session.user.name}</strong>!
+            </span>
+          )}
+          <button 
+            className="btn btn-secondary btn-sm"
+            onClick={() => signOut({ callbackUrl: '/login' })}
+          >
+            Logout
+          </button>
+        </div>
         {renderPage()}
       </main>
 
