@@ -39,7 +39,7 @@ export default function AppShell({ initialPage = 'dashboard' }) {
       <aside className="sidebar">
         <div className="sidebar-logo">
           <span>💪</span>
-          <h1>Quantum Nutrifit Pro</h1>
+          <h1><span style={{ WebkitTextFillColor: '#f97316' }}>Quantum</span> Nutrifit Pro</h1>
         </div>
         <nav className="sidebar-nav">
           {PAGES.map(p => (
