@@ -16,7 +16,10 @@ export const storage = {
 };
 
 export function getUserProfile() { return storage.get('nutrifit_user'); }
-export function saveUserProfile(p) { storage.set('nutrifit_user', p); }
+export function saveUserProfile(p) {
+  storage.set('nutrifit_user', p);
+  fetch('/api/sync', { method: 'POST', body: JSON.stringify({ type: 'profile', data: p }), headers: { 'Content-Type': 'application/json' } }).catch(() => {});
+}
 
 export function getTodayKey() { return new Date().toISOString().split('T')[0]; }
 
@@ -28,7 +31,10 @@ export function getDayLog(date) {
   };
 }
 
-export function saveDayLog(log) { storage.set(`nutrifit_log_${log.date}`, log); }
+export function saveDayLog(log) {
+  storage.set(`nutrifit_log_${log.date}`, log);
+  fetch('/api/sync', { method: 'POST', body: JSON.stringify({ type: 'log', data: log }), headers: { 'Content-Type': 'application/json' } }).catch(() => {});
+}
 
 export function getWeightLogs() { return storage.get('nutrifit_weights') || []; }
 export function saveWeightLog(entry) {

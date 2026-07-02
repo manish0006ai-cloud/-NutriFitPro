@@ -1,6 +1,7 @@
 import './globals.css';
 import { UserProvider } from '../context/UserContext';
 import { FoodLogProvider } from '../context/FoodLogContext';
+import { Providers } from '../components/Providers';
 
 export const metadata = {
   title: 'NutriFit Pro — Gym Nutrition Tracker',
@@ -11,11 +12,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="dark">
       <body>
-        <UserProvider>
-          <FoodLogProvider>
-            {children}
-          </FoodLogProvider>
-        </UserProvider>
+        <Providers>
+          <UserProvider>
+            <FoodLogProvider>
+              {children}
+            </FoodLogProvider>
+          </UserProvider>
+        </Providers>
       </body>
     </html>
   );
