@@ -4,7 +4,7 @@ import { FoodLogProvider } from '../context/FoodLogContext';
 import { Providers } from '../components/Providers';
 
 export const metadata = {
-  title: 'NutriFit Pro — Gym Nutrition Tracker',
+  title: 'Quantum Nutrifit Pro — Gym Nutrition Tracker',
   description: 'Track your macros, plan meals, and optimize your nutrition for muscle gain, fat loss, or maintenance. Built for serious gym-goers.',
 };
 

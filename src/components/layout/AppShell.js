@@ -39,7 +39,7 @@ export default function AppShell({ initialPage = 'dashboard' }) {
       <aside className="sidebar">
         <div className="sidebar-logo">
           <span>💪</span>
-          <h1>NutriFit Pro</h1>
+          <h1>Quantum Nutrifit Pro</h1>
         </div>
         <nav className="sidebar-nav">
           {PAGES.map(p => (
@@ -54,8 +54,8 @@ export default function AppShell({ initialPage = 'dashboard' }) {
           ))}
         </nav>
         <div style={{ padding: '16px', borderTop: '1px solid var(--border)', marginTop: '16px' }}>
-          <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>NutriFit Pro v1.0</p>
-          <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>Built for Gym-Goers 🏋️</p>
+          <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Quantum Nutrifit Pro v1.0</p>
+          <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>Developer Manish</p>
         </div>
       </aside>
 
